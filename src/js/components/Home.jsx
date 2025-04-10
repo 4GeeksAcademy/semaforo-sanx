@@ -1,25 +1,44 @@
 import React, { useState } from "react";
 
-//include images into your bundle
- 
-//create your first component
 const Home = () => {
 	const [color,setColor] = useState("");
+	const [showPurple, setShowPurple] = useState(true);
+
 const bright = (color) => {
-console.log(color);
+setColor(color);
 };
+const togglePurple = () => {
+	setShowPurple(!showPurple);
+	if (color === "purple") {
+		setColor("");
+	}
+};
+
 	return (
+		<div>
 		<div className="CajaSemaforo">
 		<div className="Semaforo">
-			<div className="RedLight" onClick={() => bright("red")}>
-				
+			<div className={`RedLight ${color === "red" ? "LightOn" : ""}`}
+					onClick={() => bright("red")}>				
 			</div>
-			<div className="GreenLight" onClick={() => bright("green")}>
+			<div className={`GreenLight ${color === "green" ? "LightOn" : ""}`}
+					onClick={() => bright("green")}>
 			</div>
-			<div className="YellowLight" onClick={() => bright("yellow")}>
+			<div className={`YellowLight ${color === "yellow" ? "LightOn" : ""}`}
+					onClick={() => bright("yellow")}>
 			</div>
+			{showPurple && (
+					<div
+						className={`PurpleLight ${color === "purple" ? "LightOn" : ""}`}
+						onClick={() => bright("purple")}
+					></div>
+				)}
+		</div>		
 		</div>
-		</div>
+		<button onClick={togglePurple} style={{ marginTop: "20px" }}>
+		{showPurple ? "Ocultar Luz Púrpura" : "Mostrar Luz Púrpura"}
+	</button>
+	</div>
 	);
 };
 
